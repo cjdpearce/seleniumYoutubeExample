@@ -8,17 +8,19 @@ class SeleniumExampleYoutubeTest {
     @Test
     fun search(){
         ser.youtubeSearch("Sky Betting and Gaming")
+        ser.dr.closeDriver()
     }
 
     @Test
     fun searchAndFindChannel(){
         ser.gotoChannel("Sky Betting & Gaming")
+        ser.dr.closeDriver()
     }
 
     @Test
-    fun findChannelAndFilterForVideos(){
+    fun findChannelAndOpenVideo(){
         ser.gotoChannel("Sky Betting & Gaming")
         ser.findTabContent("videos")
-        ser.clickVideo()
+        ser.clickVideo("sky betting & gaming tech academy")
     }
 }
