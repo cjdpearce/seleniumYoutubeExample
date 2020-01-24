@@ -6,17 +6,10 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 
-class DriverUtils{
-    private var options:ChromeOptions = ChromeOptions()
-    var driver:WebDriver
-    private var wait:WebDriverWait
-
-        init {
-        options.addArguments("--disable-notifications")
-        driver = ChromeDriver(options)
-        wait = WebDriverWait(driver,5)
-        driver.manage().window().fullscreen()
-        }
+open class DriverUtils{
+    private var options:ChromeOptions = ChromeOptions().addArguments("--disable-notifications")
+    var driver:WebDriver = ChromeDriver(options)
+    private var wait:WebDriverWait = WebDriverWait(driver,5)
 
     /**
      * go to a specific web address

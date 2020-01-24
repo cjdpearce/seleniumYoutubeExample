@@ -4,20 +4,18 @@ import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 
-class SeleniumExampleYoutube{
-    val dr = DriverUtils()
-
+object SeleniumExampleYoutube: DriverUtils() {
     /**
      *Conducts a search from the homepage based on keyphrase parameter passed in
      * @param searchPhrase the search phrase you would like to youtube to search for
      * @return true if the search is carried out
      */
-    fun youtubeSearch(searchPhrase:String): Boolean {
-        dr.goto("https://www.youtube.com")
-        val searchBar= dr.locateElement(By.id("search"))
+    private fun youtubeSearch(searchPhrase:String): Boolean {
+        goto("https://www.youtube.com")
+        val searchBar= locateElement(By.id("search"))
         searchBar?.sendKeys(searchPhrase)
-        dr.locateElement(By.id(("search-icon-legacy")))?.click()
-        return dr.locateElement(By.id("filter-menu"))!=null
+        locateElement(By.id(("search-icon-legacy")))?.click()
+        return locateElement(By.id("filter-menu"))!=null
     }
 
     /**
@@ -27,8 +25,8 @@ class SeleniumExampleYoutube{
      */
     fun gotoChannel(channelName:String): Boolean{
         youtubeSearch(channelName)
-        dr.locateElement(By.id("channel-title"))?.click()
-        return dr.locateElement(By.id("tabs"))!=null
+        locateElement(By.id("channel-title"))?.click()
+        return locateElement(By.id("tabs"))!=null
     }
 
     /**
@@ -37,12 +35,12 @@ class SeleniumExampleYoutube{
      * @return true if the section was successfully navigated to
      */
     fun findTabContent(sectionHeader:String): Boolean{
-        var contentSections = dr.locateElements(By.className("tab-content"))
+        var contentSections = locateElements(By.className("tab-content"))
         for (section in contentSections) {
             if (section.text.toLowerCase().contains(sectionHeader))
                 section.click()
         }
-        return dr.driver.currentUrl.contains(sectionHeader)
+        return driver.currentUrl.contains(sectionHeader)
     }
 
     /**
@@ -51,17 +49,17 @@ class SeleniumExampleYoutube{
      * @return true if the driver has navigating to a video link successfully
      */
     fun clickVideo(videoName:String): Boolean{
-        var wait = WebDriverWait(dr.driver,5)
+        var wait = WebDriverWait(driver,5)
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("ytd-grid-renderer")))
-        val videos = dr.locateElements(By.id("video-title"))
+        val videos = locateElements(By.id("video-title"))
         for (video in videos) {
             if (video.text.toLowerCase().contains(videoName))
                 video.click()
         }
-        val fullScreenButton = dr.locateElement(By.className("ytp-fullscreen-button"))
+        val fullScreenButton = locateElement(By.className("ytp-fullscreen-button"))
         wait.until(ExpectedConditions.elementToBeClickable(fullScreenButton))
-        dr.locateElement(By.className("ytp-fullscreen-button"))?.click()
-        return dr.driver.currentUrl.contains("watch?")
+        locateElement(By.className("ytp-fullscreen-button"))?.click()
+        return driver.currentUrl.contains("watch?")
     }
 
 }
