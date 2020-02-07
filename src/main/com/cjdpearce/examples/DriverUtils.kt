@@ -43,12 +43,4 @@ open class DriverUtils{
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(method))
         return driver.findElements(method)
     }
-
-    /**
-     *Closes the current instance of the webdriver
-     */
-    fun closeDriver(){
-        driver.close()
-    }
-
 }

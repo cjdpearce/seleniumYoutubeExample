@@ -3,10 +3,10 @@ package com.cjdpearce.examples
 import org.junit.jupiter.api.*
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-class SeleniumExampleYoutubeTest() {
+class SeleniumExampleYoutubeTest {
     private val sey:SeleniumExampleYoutube = SeleniumExampleYoutube
 
-
+    @DisplayName("Find the Sky Betting & Gaming Youtube Channel")
     @Order(1)
     @Test
     fun findChannel(){
@@ -16,6 +16,7 @@ class SeleniumExampleYoutubeTest() {
         )
     }
 
+    @DisplayName("Open up the video section of the channel")
     @Order(2)
     @Test
     fun navigateToVideoSection(){
@@ -25,6 +26,7 @@ class SeleniumExampleYoutubeTest() {
         )
     }
 
+    @DisplayName("Open Tech Academy Video")
     @Order(3)
     @Test
     fun openVideo(){

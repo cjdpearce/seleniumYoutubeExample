@@ -1,6 +1,7 @@
 package com.cjdpearce.examples
 
 import org.openqa.selenium.By
+import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 
@@ -12,8 +13,7 @@ object SeleniumExampleYoutube: DriverUtils() {
      */
     private fun youtubeSearch(searchPhrase:String): Boolean {
         goto("https://www.youtube.com")
-        val searchBar= locateElement(By.id("search"))
-        searchBar?.sendKeys(searchPhrase)
+        locateElement(By.id("search"))?.sendKeys(searchPhrase)
         locateElement(By.id(("search-icon-legacy")))?.click()
         return locateElement(By.id("filter-menu"))!=null
     }
@@ -35,11 +35,8 @@ object SeleniumExampleYoutube: DriverUtils() {
      * @return true if the section was successfully navigated to
      */
     fun findTabContent(sectionHeader:String): Boolean{
-        var contentSections = locateElements(By.className("tab-content"))
-        for (section in contentSections) {
-            if (section.text.toLowerCase().contains(sectionHeader))
-                section.click()
-        }
+        val contentSections = locateElements(By.className("tab-content"))
+        contentSections.find{it.text.toLowerCase().contains(sectionHeader)}?.click()
         return driver.currentUrl.contains(sectionHeader)
     }
 
@@ -52,10 +49,7 @@ object SeleniumExampleYoutube: DriverUtils() {
         var wait = WebDriverWait(driver,5)
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("ytd-grid-renderer")))
         val videos = locateElements(By.id("video-title"))
-        for (video in videos) {
-            if (video.text.toLowerCase().contains(videoName))
-                video.click()
-        }
+        videos.find{it.text.toLowerCase().contains(videoName)}?.click()
         val fullScreenButton = locateElement(By.className("ytp-fullscreen-button"))
         wait.until(ExpectedConditions.elementToBeClickable(fullScreenButton))
         locateElement(By.className("ytp-fullscreen-button"))?.click()
