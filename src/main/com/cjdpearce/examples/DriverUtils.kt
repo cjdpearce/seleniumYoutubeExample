@@ -7,9 +7,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 
 open class DriverUtils{
-    private var options:ChromeOptions = ChromeOptions().addArguments("--disable-notifications")
-    var driver:WebDriver = ChromeDriver(options)
-    private var wait:WebDriverWait = WebDriverWait(driver,5)
+    private val options:ChromeOptions = ChromeOptions().addArguments("--disable-notifications")
+    val driver:WebDriver = ChromeDriver(options)
+    private val wait:WebDriverWait = WebDriverWait(driver,5)
 
     /**
      * go to a specific web address

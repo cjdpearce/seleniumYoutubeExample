@@ -7,18 +7,6 @@ import org.openqa.selenium.support.ui.WebDriverWait
 
 object SeleniumExampleYoutube: DriverUtils() {
     /**
-     *Conducts a search from the homepage based on keyphrase parameter passed in
-     * @param searchPhrase the search phrase you would like to youtube to search for
-     * @return true if the search is carried out
-     */
-    private fun youtubeSearch(searchPhrase:String): Boolean {
-        goto("https://www.youtube.com")
-        locateElement(By.id("search"))?.sendKeys(searchPhrase)
-        locateElement(By.id(("search-icon-legacy")))?.click()
-        return locateElement(By.id("filter-menu"))!=null
-    }
-
-    /**
      *Goes to a channel based on channel name being searched for
      * @param channelName the channel name you want to go to
      * @return true if driver has successfully navigated to a channel
@@ -46,7 +34,7 @@ object SeleniumExampleYoutube: DriverUtils() {
      * @return true if the driver has navigating to a video link successfully
      */
     fun clickVideo(videoName:String): Boolean{
-        var wait = WebDriverWait(driver,5)
+        val wait = WebDriverWait(driver,5)
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("ytd-grid-renderer")))
         val videos = locateElements(By.id("video-title"))
         videos.find{it.text.toLowerCase().contains(videoName)}?.click()
@@ -56,6 +44,18 @@ object SeleniumExampleYoutube: DriverUtils() {
         return driver.currentUrl.contains("watch?")
     }
 
+    //private functions
+
+    /**
+     *Conducts a search from the homepage based on keyphrase parameter passed in
+     * @param searchPhrase the search phrase you would like to youtube to search for
+     * @return true if the search is carried out
+     */
+    private fun youtubeSearch(searchPhrase:String): Boolean {
+        goto("https://www.youtube.com")
+        locateElement(By.id("search"))?.sendKeys(searchPhrase)
+        locateElement(By.id(("search-icon-legacy")))?.click()
+        return locateElement(By.id("filter-menu"))!=null
+    }
+
 }
-
-
